@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="Vista.MenuActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="405dp"
+        android:layout_height="76dp"
+        android:background="#699CB4"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Menu"
+        app:titleMarginStart="150dp"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Display2"
+        app:titleTextColor="#010716" />
+
+    <Button
+        android:id="@+id/btnWifi"
+        android:layout_width="212dp"
+        android:layout_height="52dp"
+        android:backgroundTint="#146F9B"
+        android:text="Detalles de WiFi"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.27" />
+
+    <Button
+        android:id="@+id/btnMapa"
+        android:layout_width="212dp"
+        android:layout_height="52dp"
+        android:backgroundTint="#146E9A"
+        android:text="Ubicacion en Mapa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnWifi"
+        app:layout_constraintVertical_bias="0.045" />
+
+    <Button
+        android:id="@+id/btnVerPacientes"
+        android:layout_width="210dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#146E9A"
+        android:text="Ver Pacientes y Doctores"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnRegistro" />
+
+    <Button
+        android:id="@+id/btnVisorTablas"
+        android:layout_width="214dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#146E9A"
+        android:text="Visor Dinamico de Tablas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnVerPacientes" />
+
+    <Button
+        android:id="@+id/btnRegistro"
+        android:layout_width="212dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#146D99"
+        android:text="Registrar Paciente"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnMapa" />
+
+    <Button
+        android:id="@+id/btnCerrarSesion"
+        android:layout_width="212dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#BF1D46"
+        android:text="Cerrar sesion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnVisorTablas" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
