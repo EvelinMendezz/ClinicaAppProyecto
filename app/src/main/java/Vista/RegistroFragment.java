@@ -26,14 +26,13 @@ import Controlador.Helper;
  */
 public class RegistroFragment extends Fragment {
 
-    // Usando los IDs que aparecen en tu captura image_f78020.png
     private EditText etIdDoctor, etIdPaciente, etDetalles, etHoraSalida;
     private Button btnGuardarConsulta;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Inflamos el diseño que hiciste
+
         View view = inflater.inflate(R.layout.fragment_registro, container, false);
 
         etIdDoctor = view.findViewById(R.id.editTextNumber);
@@ -62,8 +61,8 @@ public class RegistroFragment extends Fragment {
         values.put("detalles", etDetalles.getText().toString());
         values.put("hora_salida", etHoraSalida.getText().toString());
 
-        // Asegúrate de que la tabla en tu Helper se llame "consulta"
-        long resultado = db.insert("consulta", null, values);
+
+        long resultado = db.insert("consultas", null, values);
 
         if (resultado == -1) {
             Toast.makeText(getActivity(), "Error al guardar consulta", Toast.LENGTH_SHORT).show();
@@ -74,6 +73,13 @@ public class RegistroFragment extends Fragment {
             etDetalles.setText("");
             etHoraSalida.setText("");
         }
+
         db.close();
+    }
+    public void recibirIdPaciente(String idGenerado) {
+
+        if (etIdPaciente != null) {
+            etIdPaciente.setText(idGenerado);
+        }
     }
 }

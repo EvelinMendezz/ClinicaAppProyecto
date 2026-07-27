@@ -28,12 +28,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Enlazamos las variables de Java con los IDs que pusiste en el XML
+
         etUsuario = findViewById(R.id.etUsuario);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
 
-        // Le damos la orden al botón
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,27 +45,27 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                // 1. Instanciar tu Helper
+
                 Helper dbHelper = new Helper(LoginActivity.this);
-                // 2. Obtener conexión de lectura
+
                 SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-                // 3. Consultar si existe el usuario con esa contraseña usando rawQuery
+
                 Cursor cursor = db.rawQuery("SELECT * FROM usuarios WHERE nombre = ? AND pass = ?", new String[]{usuario, password});
 
                 if (cursor != null && cursor.moveToFirst()) {
-                    // Si el cursor tiene datos, las credenciales son correctas
+
                     Toast.makeText(LoginActivity.this, "¡Bienvenida, " + usuario + "!", Toast.LENGTH_SHORT).show();
 
                     cursor.close();
                     db.close(); // Siempre cerrar la conexión
 
-                    // Saltar al menú principal
+
                     Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
                     startActivity(intent);
                     finish(); // Cerrar el login
                 } else {
-                    // Credenciales incorrectas
+
                     Toast.makeText(LoginActivity.this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
                     if (cursor != null) {
                         cursor.close();

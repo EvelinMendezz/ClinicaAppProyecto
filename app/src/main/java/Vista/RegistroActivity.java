@@ -20,7 +20,7 @@ import Controlador.Helper;
 
 public class RegistroActivity extends AppCompatActivity {
 
-    // Usando los IDs que aparecen en tu captura image_f78096.png
+
     private EditText etNombre, etEdad, etDireccion;
     private Button btnGuardarPaciente;
 
@@ -34,7 +34,7 @@ public class RegistroActivity extends AppCompatActivity {
         etDireccion = findViewById(R.id.editTextText3);
         btnGuardarPaciente = findViewById(R.id.button2);
 
-        // Cargar el Fragment de la consulta en el cuadro azul
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contenedorFragment, new RegistroFragment())
@@ -58,17 +58,23 @@ public class RegistroActivity extends AppCompatActivity {
         values.put("edad", etEdad.getText().toString());
         values.put("direccion", etDireccion.getText().toString());
 
-        // Asegúrate de que la tabla en tu Helper se llame "paciente"
-        long resultado = db.insert("paciente", null, values);
+
+        long resultado = db.insert("pacientes", null, values);
 
         if (resultado == -1) {
             Toast.makeText(this, "Error al guardar paciente", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Paciente guardado con éxito", Toast.LENGTH_SHORT).show();
-            // Limpiar los campos después de guardar
+
             etNombre.setText("");
             etEdad.setText("");
             etDireccion.setText("");
+
+            RegistroFragment fragmento = (RegistroFragment) getSupportFragmentManager().findFragmentById(R.id.contenedorFragment);
+
+            if (fragmento != null) {
+                fragmento.recibirIdPaciente(String.valueOf(resultado));
+            }
         }
         db.close();
     }

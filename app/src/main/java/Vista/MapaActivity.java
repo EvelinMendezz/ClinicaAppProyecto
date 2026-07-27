@@ -35,7 +35,6 @@ public class MapaActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Configuración de OSMDroid
         Configuration.getInstance().setUserAgentValue("ProyectoFinalClinicaHospital_Oaxaca");
         setContentView(R.layout.activity_mapa);
 
@@ -44,7 +43,6 @@ public class MapaActivity extends AppCompatActivity{
         mapa.setMultiTouchControls(true);
         mapa.getController().setZoom(18.0);
 
-        // Inicializamos el pin
         pinUsuario = new Marker(mapa);
         pinUsuario.setTitle("Tu ubicación actual");
         pinUsuario.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
@@ -52,7 +50,6 @@ public class MapaActivity extends AppCompatActivity{
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        // Pedimos permiso de ubicación si no lo tenemos
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
         } else {
@@ -62,17 +59,17 @@ public class MapaActivity extends AppCompatActivity{
 
     private void iniciarGPS() {
         try {
-            // Lee la ubicación del GPS cada segundo
+
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, new LocationListener() {
                 @Override
                 public void onLocationChanged(@NonNull Location location) {
                     double latitud_X = location.getLatitude();
                     double longitud_Y = location.getLongitude();
 
-                    // Actualizamos el cuadro de texto
+
                     tvCoordenadas.setText("X (Lat): " + latitud_X + "\nY (Lon): " + longitud_Y);
 
-                    // Movemos el mapa y el pin a donde estás
+
                     GeoPoint miUbicacion = new GeoPoint(latitud_X, longitud_Y);
                     pinUsuario.setPosition(miUbicacion);
                     mapa.getController().setCenter(miUbicacion);

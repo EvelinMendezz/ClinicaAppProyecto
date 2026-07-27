@@ -14,7 +14,7 @@ public class Helper extends SQLiteOpenHelper{
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // 1. Crear las 4 Tablas requeridas
+
         db.execSQL("CREATE TABLE usuarios (id_usuario INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, pass TEXT)");
         db.execSQL("CREATE TABLE doctores (id_doctor INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, especialidad TEXT, telefono TEXT)");
         db.execSQL("CREATE TABLE pacientes (id_paciente INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, edad INTEGER, direccion TEXT)");
@@ -33,12 +33,11 @@ public class Helper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    // Método basado en el código de tu maestra utilizando Transacciones y ContentValues
     private void insertarDatosIniciales(SQLiteDatabase db) {
-        // Inicio de transacción para mejor rendimiento
+
         db.beginTransaction();
         try {
-            //INSERCIÓN DE 4 USUARIOS
+
             String[][] usuarios = {
                     {"admin", "1234"}, {"medico", "abcd"}, {"enfermera", "1111"}, {"recepcion", "hola"}
             };
@@ -49,7 +48,7 @@ public class Helper extends SQLiteOpenHelper{
                 db.insertOrThrow("usuarios", null, valores);
             }
 
-            //INSERCIÓN DE 4 DOCTORES
+
             String[][] doctores = {
                     {"Dr. House", "Diagnóstico", "555-0101"}, {"Dra. Grey", "Cirugía", "555-0102"},
                     {"Dr. Strange", "Neurología", "555-0103"}, {"Dra. Polo", "General", "555-0104"}
@@ -62,7 +61,7 @@ public class Helper extends SQLiteOpenHelper{
                 db.insertOrThrow("doctores", null, valores);
             }
 
-            //INSERCIÓN DE 4 PACIENTES
+
             String[][] pacientes = {
                     {"Juan Perez", "30", "Calle 1"}, {"Maria Lopez", "25", "Calle 2"},
                     {"Carlos Slim", "60", "Calle 3"}, {"Ana Frank", "22", "Calle 4"}
@@ -75,7 +74,7 @@ public class Helper extends SQLiteOpenHelper{
                 db.insertOrThrow("pacientes", null, valores);
             }
 
-            // INSERCIÓN DE 4 CONSULTAS
+
             String[][] consultas = {
                     {"1", "1", "Dolor de cabeza", "10:00 AM"}, {"2", "2", "Chequeo general", "11:30 AM"},
                     {"3", "3", "Revisión neurológica", "01:00 PM"}, {"4", "4", "Vacunación", "04:15 PM"}
@@ -89,13 +88,12 @@ public class Helper extends SQLiteOpenHelper{
                 db.insertOrThrow("consultas", null, valores);
             }
 
-            // Marcar transacción como exitosa
+
             db.setTransactionSuccessful();
         } catch (Exception e) {
-            // Si hay error, la transacción no se continúa
             Log.d("Helper", "Error al insertar datos: " + e);
         } finally {
-            // Finalizar la transacción
+
             db.endTransaction();
         }
     }

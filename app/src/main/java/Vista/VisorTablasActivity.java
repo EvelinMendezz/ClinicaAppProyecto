@@ -25,7 +25,7 @@ public class VisorTablasActivity extends AppCompatActivity {
     private Spinner spinnerTablas;
     private LinearLayout contenedorVisor;
 
-    // Las tablas exactas que tienes en tu paquete Modelo
+
     private String[] tablas = {"usuarios", "pacientes", "doctores", "consultas"};
 
     @Override
@@ -36,11 +36,11 @@ public class VisorTablasActivity extends AppCompatActivity {
         spinnerTablas = findViewById(R.id.spinnerTablas);
         contenedorVisor = findViewById(R.id.contenedorVisor);
 
-        // Configuramos el menú desplegable con los nombres de las tablas
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tablas);
         spinnerTablas.setAdapter(adapter);
 
-        // Le decimos qué hacer cuando eliges una opción
+
         spinnerTablas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -50,33 +50,32 @@ public class VisorTablasActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // No hacemos nada si no hay selección
             }
         });
     }
 
     private void mostrarDatosDeTabla(String nombreTabla) {
-        // Limpiamos la pantalla por si había datos de otra tabla antes
+
         contenedorVisor.removeAllViews();
 
         Helper dbHelper = new Helper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        // Buscamos todos los datos de la tabla que elegiste
+
         Cursor cursor = db.rawQuery("SELECT * FROM " + nombreTabla, null);
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 StringBuilder registro = new StringBuilder();
 
-                // Recorremos todas las columnas de la tabla dinámicamente
+
                 for (int i = 0; i < cursor.getColumnCount(); i++) {
                     String nombreColumna = cursor.getColumnName(i);
                     String valor = cursor.getString(i);
                     registro.append(nombreColumna).append(": ").append(valor).append("\n");
                 }
 
-                // Creamos un texto nuevo por cada fila que encuentre
+
                 TextView nuevoTexto = new TextView(this);
                 nuevoTexto.setText(registro.toString() + "-----------------------------------");
                 nuevoTexto.setTextSize(16);
