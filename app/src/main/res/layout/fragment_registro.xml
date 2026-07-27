@@ -18,65 +18,73 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registro de Pacientes"
-        android:textSize="24sp"
+        android:text="Registro de Consulta"
+        android:textAlignment="center"
+        android:textColor="#050000"
+        android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.548"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar4"
+        app:layout_constraintTop_toTopOf="@+id/toolbar4"
+        tools:layout_editor_absoluteX="28dp" />
 
-    <EditText
-        android:id="@+id/etNombrePaciente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
-        android:ems="10"
-        android:hint="Nombre Completo"
-        android:inputType="text"
+    <ScrollView
+        android:layout_width="407dp"
+        android:layout_height="222dp"
+        android:background="#FFFFFF"
+        android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar4">
 
-    <Button
-        android:id="@+id/btnGuardarPaciente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Guardar Paciente"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDireccionPaciente" />
+        <!-- El LinearLayout es el único "hijo" del ScrollView, y adentro va tu diseño -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="24dp">
 
-    <EditText
-        android:id="@+id/etDireccionPaciente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="Direccion"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEdadPaciente" />
+            <EditText
+                android:id="@+id/editTextNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="ID del Doctor"
+                android:inputType="number" />
 
-    <EditText
-        android:id="@+id/etEdadPaciente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="Edad"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etNombrePaciente" />
+            <EditText
+                android:id="@+id/editTextText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="ID del Paciente"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/editTextText4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Detalles o Sintomas"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:hint="Hora de Salida"
+                android:inputType="time" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Guardar Consulta" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,50 +22,64 @@ public class VerPacientesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Asegúrate de que este nombre coincida con tu archivo XML
         setContentView(R.layout.activity_ver_pacientes);
 
         contenedorPacientes = findViewById(R.id.contenedorPacientes);
 
-        // Llamamos al método para cargar los datos en cuanto se abre la pantalla
         listarPacientes();
     }
 
     private void listarPacientes() {
-        // 1. Conectamos con la base de datos en modo lectura
         Helper dbHelper = new Helper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        // 2. Hacemos la consulta a la tabla pacientes
-        Cursor cursor = db.rawQuery("SELECT * FROM pacientes", null);
 
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                // Obtenemos los datos de cada columna
-                String nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre"));
-                String edad = cursor.getString(cursor.getColumnIndexOrThrow("edad"));
-                String direccion = cursor.getString(cursor.getColumnIndexOrThrow("direccion"));
+        String query = "SELECT pacientes.id_paciente, pacientes.nombre, pacientes.edad, pacientes.direccion, doctores.nombre " +
+                "FROM consultas " +
+                "INNER JOIN pacientes ON consultas.id_paciente = pacientes.id_paciente " +
+                "INNER JOIN doctores ON consultas.id_doctor = doctores.id_doctor";
 
-                // 3. Creamos un TextView nuevo por cada paciente
-                TextView nuevoTexto = new TextView(this);
-                nuevoTexto.setText("Paciente: " + nombre + "\nEdad: " + edad + " años\nDirección: " + direccion + "\n-----------------------------------");
-                nuevoTexto.setTextSize(18);
-                nuevoTexto.setPadding(0, 16, 0, 16);
+        try {
+            Cursor cursor = db.rawQuery(query, null);
 
-                // 4. Lo agregamos al contenedor de la pantalla
-                contenedorPacientes.addView(nuevoTexto);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
 
-            } while (cursor.moveToNext());
+                    String idPaciente = cursor.getString(0);
+                    String nombrePaciente = cursor.getString(1);
+                    String edad = cursor.getString(2);
+                    String direccion = cursor.getString(3);
+                    String nombreDoctor = cursor.getString(4);
 
-            cursor.close();
-        } else {
-            // Si la base de datos está vacía
-            TextView textoVacio = new TextView(this);
-            textoVacio.setText("No hay pacientes registrados aún.");
-            textoVacio.setTextSize(18);
-            contenedorPacientes.addView(textoVacio);
+
+                    TextView nuevoTexto = new TextView(this);
+                    nuevoTexto.setText("ID Paciente: " + idPaciente +
+                            "\nPaciente: " + nombrePaciente +
+                            "\nEdad: " + edad + " años" +
+                            "\nDirección: " + direccion +
+                            "\nAtendido por Dr(a): " + nombreDoctor +
+                            "\n-----------------------------------");
+                    nuevoTexto.setTextSize(18);
+                    nuevoTexto.setPadding(0, 16, 0, 16);
+
+                    contenedorPacientes.addView(nuevoTexto);
+
+                } while (cursor.moveToNext());
+
+                cursor.close();
+            } else {
+                TextView textoVacio = new TextView(this);
+                textoVacio.setText("No hay pacientes ni consultas registradas aún.");
+                textoVacio.setTextSize(18);
+                contenedorPacientes.addView(textoVacio);
+            }
+        } catch (Exception e) {
+            TextView textoError = new TextView(this);
+            textoError.setText("Error en la consulta. Si en tu Helper los ID se llaman solo 'id' en lugar de 'id_paciente' o 'id_doctor', hay que ajustar el texto del JOIN.");
+            textoError.setTextSize(16);
+            contenedorPacientes.addView(textoError);
+        } finally {
+            db.close();
         }
-
-        db.close();
     }
 }

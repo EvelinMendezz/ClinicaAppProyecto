@@ -26,7 +26,7 @@ public class VisorTablasActivity extends AppCompatActivity {
     private LinearLayout contenedorVisor;
 
     // Las tablas exactas que tienes en tu paquete Modelo
-    private String[] tablas = {"usuario", "paciente", "doctor", "consulta"};
+    private String[] tablas = {"usuarios", "pacientes", "doctores", "consultas"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
